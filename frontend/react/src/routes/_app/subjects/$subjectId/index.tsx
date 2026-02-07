@@ -1,18 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { IconBook, IconBooks, IconCards, IconHistory, IconPlayerPlay } from '@tabler/icons-react';
+import { IconBooks } from '@tabler/icons-react';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from '@/components/ui/item';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 type DeckCardProps = {
   title: string;
@@ -20,18 +10,15 @@ type DeckCardProps = {
   progress: number;
 };
 
-const DeckCard = ({ title, meta, progress }: DeckCardProps) => {
+const DeckCard = ({ title, meta }: DeckCardProps) => {
   return (
-    <Card size="default" className="mx-auto w-full max-w-sm">
+    <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{meta}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <Progress value={progress} className="h-1.5" />
-      </CardContent>
       <CardFooter>
-        <Button variant="outline" className="w-full" asChild>
+        <Button className="w-full" asChild>
           <Link to="/decks/$deckId" params={{ deckId: '1' }}>
             View
           </Link>
@@ -41,42 +28,36 @@ const DeckCard = ({ title, meta, progress }: DeckCardProps) => {
   );
 };
 
-const SUBJECT_DECKS = [
+const DECKS = [
   {
     id: 'linear-algebra',
     title: 'Linear Algebra',
-    meta: '24 cards • 80% completed',
-    progress: 80,
+    meta: '24 cards',
   },
   {
     id: 'integral-calculus',
     title: 'Integral Calculus',
-    meta: '45 cards • 12% completed',
-    progress: 12,
+    meta: '45 cards',
   },
   {
     id: 'differential-calculus',
     title: 'Differential Calculus',
-    meta: '38 cards • 55% completed',
-    progress: 55,
+    meta: '38 cards',
   },
   {
     id: 'probability',
     title: 'Probability',
-    meta: '30 cards • 40% completed',
-    progress: 40,
+    meta: '30 cards',
   },
   {
     id: 'statistics',
     title: 'Statistics',
-    meta: '52 cards • 22% completed',
-    progress: 22,
+    meta: '52 cards',
   },
   {
     id: 'discrete-math',
     title: 'Discrete Mathematics',
-    meta: '41 cards • 65% completed',
-    progress: 65,
+    meta: '41 cards',
   },
 ];
 
@@ -95,8 +76,20 @@ const RouteComponent = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SUBJECT_DECKS.map((item) => (
-          <DeckCard key={item.id} title={item.title} meta={item.meta} progress={item.progress} />
+        {DECKS.map((deck) => (
+          <Card key={deck.id}>
+            <CardHeader>
+              <CardTitle>{deck.title}</CardTitle>
+              <CardDescription>{deck.meta}</CardDescription>
+            </CardHeader>
+            <CardFooter>
+              <Button className="w-full" asChild>
+                <Link to="/decks/$deckId" params={{ deckId: '1' }}>
+                  View
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
         ))}
       </div>
     </div>

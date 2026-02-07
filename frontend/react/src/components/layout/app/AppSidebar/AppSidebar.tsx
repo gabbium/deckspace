@@ -62,20 +62,6 @@ const data: Data = {
       },
     },
     {
-      title: 'Subjects',
-      icon: IconBooks,
-      link: {
-        to: '/',
-      },
-    },
-    {
-      title: 'Decks',
-      icon: IconCards,
-      link: {
-        to: '/decks',
-      },
-    },
-    {
       title: 'Calendar',
       icon: IconCalendar,
       link: {

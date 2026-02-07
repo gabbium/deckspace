@@ -1,61 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  IconBook,
-  IconCards,
-  IconCheck,
-  IconChecklist,
-  IconCircle,
-  IconCircleFilled,
-  IconClock,
-  IconDots,
-  IconPencil,
-  IconSparkles,
-} from '@tabler/icons-react';
+import { IconBook, IconCards, IconChecklist, IconSparkles } from '@tabler/icons-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemGroup,
-  ItemTitle,
-} from '@/components/ui/item';
-
-const flashcards = [
-  {
-    id: 1,
-    front: 'Definition of the derivative',
-    back: "f'(x) = lim_{h->0} (f(x+h) - f(x)) / h — the instantaneous rate of change.",
-  },
-  {
-    id: 2,
-    front: 'Power Rule',
-    back: 'd/dx x^n = n * x^(n-1).',
-  },
-  {
-    id: 3,
-    front: 'Product Rule',
-    back: "d/dx [u*v] = u' * v + u * v'.",
-  },
-  {
-    id: 4,
-    front: 'Chain Rule',
-    back: "d/dx f(g(x)) = f'(g(x)) * g'(x).",
-  },
-  {
-    id: 5,
-    front: 'Implicit Differentiation',
-    back: 'Differentiate both sides wrt x, then solve for dy/dx when y is implicit.',
-  },
-  {
-    id: 6,
-    front: 'Applications: Critical Points & Optimization',
-    back: "Find where f'(x)=0 or undefined; use first/second derivative tests to classify extrema.",
-  },
-];
 
 const RouteComponent = () => {
   return (

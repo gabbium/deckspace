@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as AppDecksIndexRouteImport } from './routes/_app/decks/index'
 import { Route as AppSubjectsSubjectIdIndexRouteImport } from './routes/_app/subjects/$subjectId/index'
 import { Route as AppDecksDeckIdIndexRouteImport } from './routes/_app/decks/$deckId/index'
 
@@ -22,11 +21,6 @@ const AppRouteRoute = AppRouteRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppDecksIndexRoute = AppDecksIndexRouteImport.update({
-  id: '/decks/',
-  path: '/decks/',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppSubjectsSubjectIdIndexRoute =
@@ -43,13 +37,11 @@ const AppDecksDeckIdIndexRoute = AppDecksDeckIdIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
-  '/decks/': typeof AppDecksIndexRoute
   '/decks/$deckId/': typeof AppDecksDeckIdIndexRoute
   '/subjects/$subjectId/': typeof AppSubjectsSubjectIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
-  '/decks': typeof AppDecksIndexRoute
   '/decks/$deckId': typeof AppDecksDeckIdIndexRoute
   '/subjects/$subjectId': typeof AppSubjectsSubjectIdIndexRoute
 }
@@ -57,20 +49,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRouteWithChildren
   '/_app/': typeof AppIndexRoute
-  '/_app/decks/': typeof AppDecksIndexRoute
   '/_app/decks/$deckId/': typeof AppDecksDeckIdIndexRoute
   '/_app/subjects/$subjectId/': typeof AppSubjectsSubjectIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/decks/' | '/decks/$deckId/' | '/subjects/$subjectId/'
+  fullPaths: '/' | '/decks/$deckId/' | '/subjects/$subjectId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/decks' | '/decks/$deckId' | '/subjects/$subjectId'
+  to: '/' | '/decks/$deckId' | '/subjects/$subjectId'
   id:
     | '__root__'
     | '/_app'
     | '/_app/'
-    | '/_app/decks/'
     | '/_app/decks/$deckId/'
     | '/_app/subjects/$subjectId/'
   fileRoutesById: FileRoutesById
@@ -95,13 +85,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/decks/': {
-      id: '/_app/decks/'
-      path: '/decks'
-      fullPath: '/decks/'
-      preLoaderRoute: typeof AppDecksIndexRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/_app/subjects/$subjectId/': {
       id: '/_app/subjects/$subjectId/'
       path: '/subjects/$subjectId'
@@ -121,14 +104,12 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
-  AppDecksIndexRoute: typeof AppDecksIndexRoute
   AppDecksDeckIdIndexRoute: typeof AppDecksDeckIdIndexRoute
   AppSubjectsSubjectIdIndexRoute: typeof AppSubjectsSubjectIdIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppIndexRoute: AppIndexRoute,
-  AppDecksIndexRoute: AppDecksIndexRoute,
   AppDecksDeckIdIndexRoute: AppDecksDeckIdIndexRoute,
   AppSubjectsSubjectIdIndexRoute: AppSubjectsSubjectIdIndexRoute,
 }
