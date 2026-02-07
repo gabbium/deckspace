@@ -2,16 +2,14 @@ import {
   IconBooks,
   IconCalendar,
   IconCards,
-  IconDatabase,
-  IconFileWord,
   IconHelp,
   IconHome,
   IconInnerShadowTop,
-  IconReport,
   IconSearch,
   IconSettings,
+  type Icon,
 } from '@tabler/icons-react';
-import { Link } from '@tanstack/react-router';
+import { Link, type LinkProps } from '@tanstack/react-router';
 
 import {
   Sidebar,
@@ -28,7 +26,29 @@ import { NavSecondary } from '../NavSecondary';
 import { NavSubjects } from '../NavSubjects';
 import { NavUser } from '../NavUser';
 
-const data = {
+type Data = {
+  user: {
+    name: string;
+    email: string;
+  };
+  navMain: {
+    title: string;
+    icon: Icon;
+    link: LinkProps;
+  }[];
+  navSecondary: {
+    title: string;
+    icon: Icon;
+    url: string;
+  }[];
+  subjects: {
+    name: string;
+    color: string;
+    link: LinkProps;
+  }[];
+};
+
+const data: Data = {
   user: {
     name: 'gabbium',
     email: 'm@example.com',
@@ -52,7 +72,7 @@ const data = {
       title: 'Decks',
       icon: IconCards,
       link: {
-        to: '/',
+        to: '/decks',
       },
     },
     {
@@ -80,50 +100,45 @@ const data = {
       icon: IconSearch,
     },
   ],
-  documents: [
-    {
-      name: 'Data Library',
-      url: '/',
-      icon: IconDatabase,
-    },
-    {
-      name: 'Reports',
-      url: '/',
-      icon: IconReport,
-    },
-    {
-      name: 'Word Assistant',
-      url: '/',
-      icon: IconFileWord,
-    },
-  ],
   subjects: [
     {
       name: 'Mathematics',
       color: 'text-blue-500',
       link: {
-        to: '/',
+        to: '/subjects/$subjectId',
+        params: {
+          subjectId: '1',
+        },
       },
     },
     {
       name: 'History',
       color: 'text-amber-500',
       link: {
-        to: '/',
+        to: '/subjects/$subjectId',
+        params: {
+          subjectId: '1',
+        },
       },
     },
     {
       name: 'Physics',
       color: 'text-emerald-500',
       link: {
-        to: '/',
+        to: '/subjects/$subjectId',
+        params: {
+          subjectId: '1',
+        },
       },
     },
     {
       name: 'Literature',
       color: 'text-purple-500',
       link: {
-        to: '/',
+        to: '/subjects/$subjectId',
+        params: {
+          subjectId: '1',
+        },
       },
     },
   ],
