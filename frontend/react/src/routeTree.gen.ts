@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AppSubjectsSubjectIdIndexRouteImport } from './routes/_app/subjects/$subjectId/index'
 import { Route as AppDecksDeckIdIndexRouteImport } from './routes/_app/decks/$deckId/index'
 
@@ -22,6 +24,16 @@ const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/_auth/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/_auth/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AppSubjectsSubjectIdIndexRoute =
   AppSubjectsSubjectIdIndexRouteImport.update({
@@ -37,10 +49,14 @@ const AppDecksDeckIdIndexRoute = AppDecksDeckIdIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
   '/decks/$deckId/': typeof AppDecksDeckIdIndexRoute
   '/subjects/$subjectId/': typeof AppSubjectsSubjectIdIndexRoute
 }
 export interface FileRoutesByTo {
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
   '/': typeof AppIndexRoute
   '/decks/$deckId': typeof AppDecksDeckIdIndexRoute
   '/subjects/$subjectId': typeof AppSubjectsSubjectIdIndexRoute
@@ -48,18 +64,27 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRouteWithChildren
+  '/_auth/login': typeof AuthLoginRoute
+  '/_auth/register': typeof AuthRegisterRoute
   '/_app/': typeof AppIndexRoute
   '/_app/decks/$deckId/': typeof AppDecksDeckIdIndexRoute
   '/_app/subjects/$subjectId/': typeof AppSubjectsSubjectIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/decks/$deckId/' | '/subjects/$subjectId/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/decks/$deckId/'
+    | '/subjects/$subjectId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/decks/$deckId' | '/subjects/$subjectId'
+  to: '/login' | '/register' | '/' | '/decks/$deckId' | '/subjects/$subjectId'
   id:
     | '__root__'
     | '/_app'
+    | '/_auth/login'
+    | '/_auth/register'
     | '/_app/'
     | '/_app/decks/$deckId/'
     | '/_app/subjects/$subjectId/'
@@ -67,6 +92,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRouteWithChildren
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -84,6 +111,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/_auth/register': {
+      id: '/_auth/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/login': {
+      id: '/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_app/subjects/$subjectId/': {
       id: '/_app/subjects/$subjectId/'
@@ -120,6 +161,8 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRouteWithChildren,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

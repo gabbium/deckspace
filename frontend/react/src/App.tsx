@@ -9,13 +9,7 @@ import { router } from './router';
 export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-        forcedTheme="light"
-        enableSystem
-        disableTransitionOnChange
-      >
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
         <TooltipProvider>
           <RouterProvider router={router} />
         </TooltipProvider>

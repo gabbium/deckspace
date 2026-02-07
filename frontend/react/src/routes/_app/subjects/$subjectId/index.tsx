@@ -83,7 +83,7 @@ const RouteComponent = () => {
               <CardDescription>{deck.meta}</CardDescription>
             </CardHeader>
             <CardFooter>
-              <Button className="w-full" asChild>
+              <Button variant="outline" className="w-full" asChild>
                 <Link to="/decks/$deckId" params={{ deckId: '1' }}>
                   View
                 </Link>
